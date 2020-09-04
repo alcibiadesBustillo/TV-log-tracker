@@ -1,0 +1,39 @@
+{% extends "tv_shows/base.html"%}
+{%block content%}
+
+    <div class="col s6 offset-s4">
+        <h1>{{tv_show}}</h1> <br>
+        <p>The total time watching {{tv_show}} was {{total_time_elapse}}</p>
+
+        <h3>History</h3>
+        
+    </div>
+
+    <table class="centered responsive-table">
+        <thead>
+          <tr>
+              <th>Date</th>
+              <th>Starting at</th>
+              <th>Finishing at</th>
+          </tr>
+        </thead>     
+
+        <tbody>          
+            {% for spent in spents %}
+                <tr>                
+                    <td>{{spent.date|date:"F j, Y"}}</td>
+                    <td>{{spent.initial_time}}</td>
+                    <td>{{spent.final_time}} </td>
+                </tr>                       
+            {% empty %}
+                <tr>
+                    <td>J</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            {% endfor %}                   
+        </tbody>
+      </table>
+    
+    
+{%endblock content%}
