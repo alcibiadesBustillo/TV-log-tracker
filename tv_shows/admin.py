@@ -6,10 +6,12 @@ from .models import Category, Show, Spent
 class CategoryAdmin(admin.ModelAdmin):
     pass
 
-@admin.register(Show)
-class ShoewAdmin(admin.ModelAdmin):
-    pass
 
-@admin.register(Spent)
-class SpentAdmin(admin.ModelAdmin):
-    pass
+
+class SpentInline(admin.StackedInline):
+    model = Spent
+    
+
+@admin.register(Show)
+class ShowAdmin(admin.ModelAdmin):
+    inlines = [SpentInline,]

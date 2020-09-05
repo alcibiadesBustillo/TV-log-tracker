@@ -1,25 +1,29 @@
 {% extends "tv_shows/base.html"%}
 {%block content%}
+    <div class="row">
+        <div class="row row-cols-1 row-cols-md-3">       
+            {% for show in shows %}             
+                <div class="col mb-4">
+                    <div class="card">
+                    <img src="https://urbandojo.com/wp-content/uploads/2017/04/default-image.jpg" height="150">
     
-    {% for show in shows %}
-        <div class="row">        
-            <div class="col s4 offset-s4">
-                <div class="card ">
-                    <div class="card-image">
-                      <img src="https://urbandojo.com/wp-content/uploads/2017/04/default-image.jpg" width="200" height="150">
-                      <span class="card-title">{{ show.name }}</span>
-                      <a class="btn-floating halfway-fab waves-effect waves-light red" href="{% url 'show' show.pk %}"><i class="material-icons">add</i></a>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ show.name }}</h5>
+                        <p class="card-text">
+                            {% for category in show.categories.all %}
+                                <span class="tag">{{ category }}</span>|
+                            {% endfor %}    
+                        </p>
+                        <p><a href="{% url 'show' show.pk %}" class="card-link">Detail</a></p>
                     </div>
-                    <div class="card-content">
-                        {% for category in show.categories.all %}
-                            <span class="tag">{{ category }}</span>|
-                        {% endfor %}
-                    </div>
-                </div>                    
-            </div>
+                    </div>          
+                </div>
+            {% empty %}
+                <h3>No Shows found ...</h3>
+            {% endfor %}                
             
-        </div>            
-    {% empty %}
-        <h3>No Shows found ...</h3>
-    {% endfor %}
+        </div>
+                  
+    </div>
+    
 {%endblock content%}

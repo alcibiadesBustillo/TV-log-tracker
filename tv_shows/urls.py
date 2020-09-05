@@ -5,5 +5,6 @@ from . import views
 urlpatterns = [
     path('', views.home, name='index'),
     path('show/<str:pk>/', views.show, name='show'),
+    path('new_show/', views.createShow, name='create_show'),
 
 ]

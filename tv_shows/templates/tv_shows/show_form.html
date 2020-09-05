@@ -1,0 +1,23 @@
+{% extends "tv_shows/base.html"%}
+{% load crispy_forms_tags %}
+{%block content%}
+    <style type="text/css">
+        #div_id_categories > div{
+            max-height: 100px;
+            overflow-y: scroll;
+            border:1px solid #888;
+            padding: 5px;
+            border-radius: 5px;
+        }
+    </style>
+    <div class="col s9 ">
+        <h1>Add new show</h1>
+        <form method="post" >
+            {% csrf_token %}
+            {{form|crispy}}         
+            <input class="btn btn-primary" type="submit" value="Submit Post">
+
+        </form>
+    </div>   
+    
+{%endblock content%}

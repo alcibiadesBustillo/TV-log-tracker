@@ -1,39 +1,44 @@
 {% extends "tv_shows/base.html"%}
 {%block content%}
 
-    <div class="col s6 offset-s4">
-        <h1>{{tv_show}}</h1> <br>
-        <p>The total time watching {{tv_show}} was {{total_time_elapse}}</p>
-
+    <div class="col-9">
+        <h1>{{tv_show}}</h1>
         <h3>History</h3>
-        
+        <p>
+            {% if total_time_elapse %}
+                The total time watching {{tv_show}} was {{total_time_elapse}}
+            {% else %}
+                Not information yet!
+            {% endif %}
+            
+        </p>
+        <table class="striped responsive-table">
+            <thead>
+              <tr>
+                  <th>Date</th>
+                  <th>Starting at</th>
+                  <th>Finishing at</th>
+              </tr>
+            </thead>     
+    
+            <tbody>          
+                {% for spent in spents %}
+                    <tr>                
+                        <td>{{spent.date|date:"F j, Y"}}</td>
+                        <td>{{spent.initial_time}}</td>
+                        <td>{{spent.final_time}} </td>
+                    </tr>                       
+                {% empty %}
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                {% endfor %}                   
+            </tbody>
+        </table>                
     </div>
 
-    <table class="centered responsive-table">
-        <thead>
-          <tr>
-              <th>Date</th>
-              <th>Starting at</th>
-              <th>Finishing at</th>
-          </tr>
-        </thead>     
-
-        <tbody>          
-            {% for spent in spents %}
-                <tr>                
-                    <td>{{spent.date|date:"F j, Y"}}</td>
-                    <td>{{spent.initial_time}}</td>
-                    <td>{{spent.final_time}} </td>
-                </tr>                       
-            {% empty %}
-                <tr>
-                    <td>J</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            {% endfor %}                   
-        </tbody>
-      </table>
     
     
 {%endblock content%}
