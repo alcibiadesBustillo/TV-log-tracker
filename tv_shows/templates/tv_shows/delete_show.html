@@ -1,0 +1,15 @@
+{% extends "tv_shows/base.html"%}
+
+{% block content %}
+    <div class="col">
+        <h3>Delete Post</h3> 
+        <p>Are you sure you want to delete the program {{ show.name }}?</p>       
+        <form action="" method="post" enctype="multipart">
+            {% csrf_token %}
+            
+            <input class="btn btn-danger" type="submit" value="Confirm">
+
+        </form>
+    </div>
+    
+{% endblock content%}

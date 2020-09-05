@@ -3,7 +3,7 @@
 
     <div class="col">
         {% if tv_show %}
-            <h2>{{tv_show}}</h2>        
+            <h1>{{tv_show}}</h1>        
         {% endif %}
         
         <h3>History</h3>
@@ -21,6 +21,7 @@
                   <th scope="col">Date</th>
                   <th scope="col">Starting at</th>
                   <th scope="col">Finishing at</th>
+                  <th scope="col">Actions</th>
               </tr>
             </thead>     
     
@@ -30,9 +31,14 @@
                         <td>{{spent.date|date:"F j, Y"}}</td>
                         <td>{{spent.initial_time}}</td>
                         <td>{{spent.final_time}} </td>
+                        <td>
+                            <a href="{% url 'update_spent' pk1 spent.pk %}">Edit</a>|
+                            <a href="{% url 'delete_spent' pk1 spent.pk %}">Delete</a>
+                        </td>
                     </tr>                       
                 {% empty %}
                     <tr>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>

@@ -1,6 +1,7 @@
 import time
 import datetime 
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 from .models import Show, Spent
@@ -37,12 +38,14 @@ def show(request, pk):
     context = {
         'spents': spents,
         'tv_show': tv_show,
-        'total_time_elapse':  total_time}   
+        'total_time_elapse':  total_time,
+        'pk1': pk
+        }   
     return render(request, 'tv_shows/show.html', context)
 
+@login_required(login_url="index")
 def createShow(request):
-    form = ShowForm()
-    
+    form = ShowForm()    
     if request.method == 'POST':
         form = ShowForm(request.POST)
         if form.is_valid():
@@ -52,10 +55,35 @@ def createShow(request):
             )
             show.categories.set(form.cleaned_data['categories'])
         return redirect('index')
-
     context = {'form': form}   
     return render(request, 'tv_shows/show_form.html', context)
 
+@login_required(login_url="index")
+def updateShow(request, pk):
+    show = Show.objects.get(pk=pk)
+    form = ShowForm(instance=show)    
+    if request.method == 'POST':
+        form = ShowForm(request.POST)
+        if form.is_valid():
+            show.name = form.cleaned_data['name']
+            show.author = request.user 
+            show.save()
+            show.categories.set(form.cleaned_data['categories'])
+        return redirect('index')
+    context = {'form': form}   
+    return render(request, 'tv_shows/show_form.html', context)
+
+@login_required(login_url="index")
+def deleteShow(request, pk):
+    show = Show.objects.get(pk=pk)
+    if request.method == 'POST':
+        show.delete()
+        return redirect('index')
+
+    context = {'show': show}   
+    return render(request, 'tv_shows/delete_show.html', context)
+    
+@login_required(login_url="index")    
 def createSpent(request, pk):
     form = SpentForm()#initial={'show': pk})
     #form.fields['show'].widget.attrs['readonly'] = True
@@ -75,4 +103,31 @@ def createSpent(request, pk):
 
     context = {'form': form}   
     return render(request, 'tv_shows/spent_form.html', context)
+
+@login_required(login_url="index")
+def updateSpent(request, pk1, pk2):
+    spent = Spent.objects.get(pk=pk2)
+    form = SpentForm(instance=spent)      
+    if request.method == 'POST':        
+        form = SpentForm(request.POST)
+        if form.is_valid():            
+            s = Spent.objects.get(pk=pk2)
+            s.show = get_object_or_404(Show, pk=pk1)
+            s.date = form.cleaned_data['date']
+            s.initial_time = form.cleaned_data['initial_time']
+            s.final_time = form.cleaned_data['final_time']
+            s.save()          
+        return redirect('show', pk=pk1)
+    context = {'form': form}   
+    return render(request, 'tv_shows/spent_form.html', context)
+
+@login_required(login_url="index")
+def deleteSpent(request, pk1, pk2):
+    spent = Spent.objects.get(pk=pk2)
+    if request.method == 'POST':
+        spent.delete()
+        return redirect('show', pk=pk1)
+
+    context = {'spent': spent}   
+    return render(request, 'tv_shows/delete_spent.html', context)
 
