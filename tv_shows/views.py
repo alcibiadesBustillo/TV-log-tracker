@@ -1,10 +1,10 @@
 import time
 import datetime 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
 from .models import Show, Spent
-from .forms import ShowForm
+from .forms import ShowForm, SpentForm
 
 from .auxiliar import td_format
 
@@ -55,3 +55,24 @@ def createShow(request):
 
     context = {'form': form}   
     return render(request, 'tv_shows/show_form.html', context)
+
+def createSpent(request, pk):
+    form = SpentForm()#initial={'show': pk})
+    #form.fields['show'].widget.attrs['readonly'] = True
+    if request.method == 'POST':
+        form = SpentForm(request.POST)        
+        #print()
+        if form.is_valid():
+            #id = request.POST['show']
+            Spent.objects.create(
+                show = get_object_or_404(Show, pk=pk),
+                date = form.cleaned_data['date'],
+                initial_time = form.cleaned_data['initial_time'],
+                final_time = form.cleaned_data['final_time'],
+            )
+            #form.save()
+        return redirect('show', pk=pk)
+
+    context = {'form': form}   
+    return render(request, 'tv_shows/spent_form.html', context)
+

@@ -1,0 +1,17 @@
+{% extends "tv_shows/base.html"%}
+{% load crispy_forms_tags %}
+{%block content%}
+    
+    <div class="col s9 ">
+        <h1>Time spent watching ...</h1>
+        <form method="post" >
+            {% csrf_token %}
+            {{form|crispy}}         
+            <input class="btn btn-primary" type="submit" value="Submit Post">
+
+        </form>
+    </div>
+    
+    
+    
+{%endblock content%}

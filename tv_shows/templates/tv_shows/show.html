@@ -1,8 +1,11 @@
 {% extends "tv_shows/base.html"%}
 {%block content%}
 
-    <div class="col-9">
-        <h1>{{tv_show}}</h1>
+    <div class="col">
+        {% if tv_show %}
+            <h2>{{tv_show}}</h2>        
+        {% endif %}
+        
         <h3>History</h3>
         <p>
             {% if total_time_elapse %}
@@ -12,12 +15,12 @@
             {% endif %}
             
         </p>
-        <table class="striped responsive-table">
-            <thead>
+        <table class="table">
+            <thead class="thead-dark">
               <tr>
-                  <th>Date</th>
-                  <th>Starting at</th>
-                  <th>Finishing at</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Starting at</th>
+                  <th scope="col">Finishing at</th>
               </tr>
             </thead>     
     

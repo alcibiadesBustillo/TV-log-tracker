@@ -1,29 +1,28 @@
 {% extends "tv_shows/base.html"%}
 {%block content%}
-    <div class="row">
-        <div class="row row-cols-1 row-cols-md-3">       
+        
             {% for show in shows %}             
-                <div class="col mb-4">
-                    <div class="card">
-                    <img src="https://urbandojo.com/wp-content/uploads/2017/04/default-image.jpg" height="150">
-    
+                
+                <div class="card">   
                     <div class="card-body">
-                        <h5 class="card-title">{{ show.name }}</h5>
-                        <p class="card-text">
+                        <h1>{{ show.name }}</h5>
+                        <p >
                             {% for category in show.categories.all %}
                                 <span class="tag">{{ category }}</span>|
                             {% endfor %}    
                         </p>
-                        <p><a href="{% url 'show' show.pk %}" class="card-link">Detail</a></p>
+                        <p>
+                            <a href="{% url 'show' show.pk %}" class="card-link">Stats</a>
+                            <a href="{% url 'create_spent' show.pk %}" class="card-link">Add</a>
+                        </p>
                     </div>
-                    </div>          
-                </div>
+                </div>                          
             {% empty %}
                 <h3>No Shows found ...</h3>
             {% endfor %}                
             
-        </div>
+        
                   
-    </div>
+    
     
 {%endblock content%}

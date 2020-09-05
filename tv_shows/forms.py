@@ -2,6 +2,8 @@ from django import forms
 from django.forms import ModelForm
 
 from .models import Spent, Show, Category
+from django.contrib.admin import widgets
+
 
 
 TV_CATEGORY = [
@@ -55,5 +57,23 @@ class ShowForm(ModelForm):
         widgets = {
             'categories': forms.CheckboxSelectMultiple(),
         }
-    
+
+time_widget = forms.widgets.TimeInput(attrs={'class': 'form-control', 'type': 'time','placeholder': 'ex: 10:30AM'})
+
+class SpentForm(ModelForm):
+
+    initial_time = forms.TimeField(required=True, widget=time_widget, help_text='ex: 10:30AM')
+    final_time = forms.TimeField(required=True, widget=time_widget, help_text='ex: 10:30AM')
+
+    class Meta:
+        model = Spent
+        fields = "__all__"
+        exclude = ('show',)
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date'}),            
+        }
+
+        
+        
+
         
