@@ -14,4 +14,6 @@ GETTING STARTED
 3 - Create superuser
     python manage.py createsuperuser
     
-![]
+| Image 1                                                                                     | Image 2                                                                                     | Image 3                                                                                     | Image 4                                                                                     |
+|---------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| ![](https://github.com/alcibiadesBustillo/TV-log-tracker/blob/master/images_app/image0.png) | ![](https://github.com/alcibiadesBustillo/TV-log-tracker/blob/master/images_app/image1.png) | ![](https://github.com/alcibiadesBustillo/TV-log-tracker/blob/master/images_app/image2.png) | ![](https://github.com/alcibiadesBustillo/TV-log-tracker/blob/master/images_app/image3.png) |
